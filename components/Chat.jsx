@@ -11,7 +11,7 @@ import { useMutation } from '@tanstack/react-query';
 const Chat = () => {
   const [text, setText] = useState('');
   const [messages, setMessages] = useState([]);
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState(personalities[0].title);
   const [selectedDesc, setSelectedDesc] = useState(null);
 
   const { mutate, isPending, data } = useMutation({
@@ -45,10 +45,16 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    if (selected) {
-      console.log({ selected });
+    if (messages) {
+      const chatContainer = document.getElementById('chatContainer');
+      const scrollOptions = {
+        top: chatContainer.scrollHeight,
+        behavior: 'smooth',
+      };
+
+      chatContainer.scrollTo(scrollOptions);
     }
-  }, [selected]);
+  }, [messages]);
 
   return (
     <div className="flex flex-col ">
@@ -90,7 +96,10 @@ const Chat = () => {
         </div>
       </div>
       {/* messages */}
-      <div className="flex-auto overflow-y-auto  p-4 max-h-[calc(100vh-18rem)]">
+      <div
+        id="chatContainer"
+        className="flex-auto overflow-y-auto p-4 h-[calc(100vh-20rem)] scrollbar"
+      >
         <div className="space-y-4">
           {messages.map(({ role, content }, index) => {
             const avatar = role == 'user' ? '👤' : '🤖';
@@ -108,16 +117,13 @@ const Chat = () => {
           {isPending && <span className="loading"></span>}
         </div>
       </div>
-      <div className="flex-none p-4">
-        {/* input */}
-        <form
-          onSubmit={handleSubmit}
-          className="max-w-4xl pt-12 fixed bottom-0 w-full "
-        >
+      {/* input */}
+      <div className="flex my-6 lg:my-0 p-4 justify-center items-center h-full">
+        <form onSubmit={handleSubmit} className="max-w-4xl w-full ">
           <div className="join w-full">
             <input
               type="text"
-              placeholder="Message GeniusGPT"
+              placeholder={`Chat with ${selected}`}
               className="input input-bordered join-item w-full"
               value={text}
               required

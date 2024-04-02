@@ -1,6 +1,6 @@
 export const personalities = [
   {
-    title: 'Einstein',
+    title: 'Albert Einstein',
     description: 'German physicist',
   },
   {
@@ -36,7 +36,7 @@ export const personalities = [
     description: 'English scientist',
   },
   {
-    title: 'Mean assistant',
+    title: 'Mean old lady',
     description: "You'd better not chat with me",
   },
 ];

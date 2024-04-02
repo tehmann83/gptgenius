@@ -177,7 +177,7 @@ export const generateChatBotResponse = async (
       messages: [
         {
           role: 'system',
-          content: `Please act as ${person} (${description}) and answer all question like you were exactly this person, with all their available knowledge and attitudes. Start all answers with: "${person}:"`,
+          content: `Please act as ${person} (${description}) and answer all question like you were exactly this person, with all their available knowledge and attitudes.`,
         },
         ...chatMessages,
       ],
